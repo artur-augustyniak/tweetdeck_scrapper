@@ -49,8 +49,18 @@ var intervalID = setInterval(function () {
             let tweetText = tweet.querySelector("div.tweet-body").innerText;
             let tweetImgs = tweet.querySelectorAll("a.js-media-image-link")
             let tweetImgUrls = new Array()
+            let tweetHrefs = new Array()
             Array.prototype.forEach.call(tweetImgs, function (tweetImg) {
                 tweetImgUrls.push(tweetImg.style.backgroundImage.slice(5).slice(0, -2).split("?")[0].slice(0, -4) + "?format=jpg&name=large")
+
+            });
+
+            let links = tweet.querySelectorAll("div.tweet-body a");
+            Array.prototype.forEach.call(links, function (link) {
+                url = link.href;
+                if (url.startsWith('https://t.co/')) {
+                    tweetHrefs.push(url);
+                }
 
             });
             digestMessage(tweetText)
@@ -68,7 +78,8 @@ var intervalID = setInterval(function () {
                         ],
                         "tweet_author": author,
                         "tweet_creation_time": creationTime,
-                        "tweet_image_urls": tweetImgUrls
+                        "tweet_image_urls": tweetImgUrls,
+                        "tweet_urls" : tweetHrefs
                     };
 
                     fetch(targetUrl, {
