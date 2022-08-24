@@ -63,11 +63,12 @@ var intervalID = setInterval(function () {
                 }
 
             });
+            var linksString = tweetHrefs.join(" ");
             digestMessage(tweetText)
                 .then(digestHex => {
                     let data = {
                         "sha256": digestHex,
-                        "bytes_b64": utf8_to_b64(tweetText),
+                        "bytes_b64": utf8_to_b64(tweetText + " " + linksString),
                         "mimetype": "text/plain",
                         "source_url": tweetUrl,
                         "status": "new",
