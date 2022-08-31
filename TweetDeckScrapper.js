@@ -39,6 +39,7 @@ async function digestMessage(message) {
 var intervalID = setInterval(function () {
 
     const tweetsCols = document.getElementsByClassName("js-chirp-container");
+    const scrapperUsername = document.querySelector("span.username").innerText.trim();
 
     console.log(tweetsCols);
     Array.prototype.forEach.call(tweetsCols, function (tweetsColumn) {
@@ -74,8 +75,7 @@ var intervalID = setInterval(function () {
                         "status": "new",
                         "tags": [
                             "tweet",
-                            "scrapped",
-                            "tweetdeck",
+                            "scrapped_by:" + scrapperUsername,
                         ],
                         "tweet_author": author,
                         "tweet_creation_time": creationTime,
