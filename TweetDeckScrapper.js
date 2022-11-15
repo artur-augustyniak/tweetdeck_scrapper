@@ -36,6 +36,33 @@ async function digestMessage(message) {
     return hashHex;
 }
 
+
+function dumpFilters() {
+    let filters = new Array()
+    const fullColls = document.getElementsByClassName("js-column-holder");
+    Array.prototype.forEach.call(fullColls, function (fColl) {
+        let hInput = fColl.querySelector("header div div input");
+        if (null != hInput) {
+            filters.push(hInput.value);
+        }
+    });
+    return filters;
+}
+
+
+function dumpFilteredAccounts() {
+    let filters = new Array()
+    const fullColls = document.getElementsByClassName("js-column-holder");
+    Array.prototype.forEach.call(fullColls, function (fColl) {
+        let hSpan = fColl.querySelector("header div div span.attribution");
+        if (null != hSpan) {
+            filters.push(hSpan.innerText);
+        }
+    });
+    return filters;
+}
+
+
 var intervalID = setInterval(function () {
 
     const tweetsCols = document.getElementsByClassName("js-chirp-container");
@@ -80,7 +107,7 @@ var intervalID = setInterval(function () {
                         "tweet_author": author,
                         "tweet_creation_time": creationTime,
                         "tweet_image_urls": tweetImgUrls,
-                        "tweet_urls" : tweetHrefs
+                        "tweet_urls": tweetHrefs
                     };
 
                     fetch(targetUrl, {
